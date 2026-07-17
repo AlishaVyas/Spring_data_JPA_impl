@@ -3,7 +3,11 @@ package com.epam.demo.service;
 
 import com.epam.demo.Entity.Applicant;
 import com.epam.demo.repository.ApplicantCrudRepository;
+import com.epam.demo.repository.ApplicantJpaRepository;
+import com.epam.demo.repository.ApplicantPagingAndSortingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,16 +19,23 @@ public class ApplicantService {
     @Autowired
     private ApplicantCrudRepository applicantCrudRepository;
 
+    @Autowired
+    private ApplicantPagingAndSortingRepository applicantpagingAndSortingRepository;
+
+    @Autowired
+    private ApplicantJpaRepository applicantjpaRepository;
+
     public List<Applicant> getAllApplicants(){
-        Iterable<Applicant> all =  applicantCrudRepository.findAll();
-        List<Applicant> applicantList = new ArrayList<>();
-        all.forEach(applicantList::add);
-        return applicantList;
+        return applicantCrudRepository.findAll();
     }
 
     public Applicant  saveApplicantCrud(Applicant applicant){
         return applicantCrudRepository.save(applicant);
 
+    }
+
+    public Iterable<Applicant> getApplicantsWithPagination(int page, int size){
+        return applicantpagingAndSortingRepository.findAll(PageRequest.of(page,size));
     }
 
 }
