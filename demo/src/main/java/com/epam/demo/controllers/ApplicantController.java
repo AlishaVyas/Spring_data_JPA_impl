@@ -28,4 +28,10 @@ public class ApplicantController {
     public Iterable<Applicant> getApplicantWithPagination(@RequestParam int page, @RequestParam int size){
         return applicantService.getApplicantsWithPagination(page,size);
     }
+
+    @GetMapping("/getByStatus")
+    public List<Applicant> getApplicantsByStatus(@RequestParam String status) {
+        return applicantService.getAllApplicantsByStatus(status);
+    }
+
 }

@@ -38,6 +38,10 @@ public class ApplicantService {
         return applicantpagingAndSortingRepository.findAll(PageRequest.of(page,size));
     }
 
+    public List<Applicant> getAllApplicantsByStatus(String status){
+        return applicantjpaRepository.findByStatus(status);
+    }
+
 }
 
 
